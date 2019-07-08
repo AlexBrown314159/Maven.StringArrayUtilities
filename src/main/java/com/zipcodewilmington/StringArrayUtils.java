@@ -1,6 +1,7 @@
 package com.zipcodewilmington;
 
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 /**
  * Created by leon on 1/29/18.
@@ -218,29 +219,45 @@ public class StringArrayUtils {
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
 
-        String testStr = array[0];
-        String bufStr = array[0];
+        Integer iCount = 1;
 
-        ArrayList<String> arr = new ArrayList<String>();
+        String str = array[0];
 
         for (Integer i = 1; i < array.length; i++) {
-            if (testStr.equals(array[i]) ) {
-                bufStr = bufStr + array[i];
+
+           if (array[i] != str) {
+
+               str = array[i];
+               iCount++;
+
+           }
+        }
+
+        String[] outPut = new String[iCount];
+
+        iCount = 0;
+
+        str = array[0];
+        outPut[0] = str;
+
+        for (Integer i = 1; i < array.length; i++) {
+
+            if (array[i] != str) {
+
+                str = array[i];
+                iCount++;
+                outPut[iCount] = array[i];
+
             }
             else {
-                arr.add(bufStr);
-                bufStr = array[i];
+
+                outPut[iCount] = outPut[iCount] + array[i];
+
             }
-        }
-            arr.add(bufStr);
 
-        String[] myStr2 = new String[arr.size()];
-
-        for (Integer i = 0; i < myStr2.length; i++) {
-            myStr2[i] = arr.get(i);
         }
 
-        return myStr2;
+        return outPut;
     }
 
 }
